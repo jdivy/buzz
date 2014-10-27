@@ -18,11 +18,23 @@ var BrewSchema = new Schema({
         size: String,
         grinder: String
     },
-    ratings: [{
-        user_id: ObjectId,
+    ratings: { type: [{
+        user_id: Schema.Types.ObjectId,
         rating: Number
-    }],
-    average_rating: Number
+    }], default: []}
 });
 
-module.exports = mongoose.model('Brew', BrewSchema)
+BrewSchema
+    .virtual('average_rating')
+    .get(function(){
+        var avg;
+        if (this.ratings){
+            var sum = this.ratings.reduce(function(a, b){
+                return a.rating + b.rating;
+            });
+            avg = sum / this.ratings.length;
+        }
+        return avg;
+    });
+
+module.exports = mongoose.model('Brew', BrewSchema);
