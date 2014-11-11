@@ -7,6 +7,26 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Brew = require('../api/brew/brew.model');
+
+Brew.find({}).remove(function() {
+  Brew.create({
+    time: new Date(),
+      bean: {
+    roastery: "Tonx",
+      roast: "light",
+      name: "Costa Rica"
+  },
+    water: {
+      temperature: 200,
+        degrees: "F"
+    },
+    grind: {
+      size: "30K",
+      grinder: "Baratza Preciso"
+    }
+  });
+});
 
 Thing.find({}).remove(function() {
   Thing.create({

@@ -27,14 +27,13 @@ var BrewSchema = new Schema({
 BrewSchema
     .virtual('average_rating')
     .get(function(){
-        var avg;
-        if (this.ratings){
+        if (this.ratings.length){
             var sum = this.ratings.reduce(function(a, b){
                 return a.rating + b.rating;
             });
-            avg = sum / this.ratings.length;
+            return sum / this.ratings.length;
         }
-        return avg;
+        return 0;
     });
 
 module.exports = mongoose.model('Brew', BrewSchema);
