@@ -9,18 +9,6 @@ angular.module('buzzApp')
       //socket.syncUpdates('brew', $scope.awesomeBrews);
     });
 
-    $scope.addBrew = function() {
-      /*if ( $scope.newBrew === '' ) {
-        return;
-      }
-      $http.post('/api/brews', { name: $scope.newBrew });
-      $scope.newBrew = '';*/
-    };
-
-    $scope.deleteBrew = function( brew ) {
-      $http.delete('/api/brews/' + brew._id);
-    };
-
     $scope.$on('$destroy', function() {
       //socket.unsyncUpdates('brew');
     });

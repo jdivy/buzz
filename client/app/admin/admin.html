@@ -1,12 +1,27 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container">
+  <h3 class="text-primary">Users</h3>
   <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
         <span class="text-muted">{{user.email}}</span>
-        <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+        <a ng-click="deleteUser(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+    </li>
+  </ul>
+</div>
+
+<div class="container">
+  <a ng-click="addBrew()" class="pull-right">Add Brew</a>
+  <h3 class="text-primary">Brews</h3>
+  <p>The delete brew and add brew api routes are restricted to users with the 'admin' role.</p>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="brew in brews">
+      <a ng-click="deleteBrew(brew)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+      <strong>{{brew.bean.name}}</strong><br/>
+      <span class="text-muted">{{brew.bean.roastery}}</span><br/>
+      <span class="text-info">{{brew.time}}</span>
     </li>
   </ul>
 </div>
