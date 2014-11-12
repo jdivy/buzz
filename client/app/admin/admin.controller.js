@@ -26,12 +26,11 @@ angular.module('buzzApp')
       });
     };
 
+    $scope.brew = {};
+
     $scope.addBrew = function() {
-      alert("not implemented yet!");
-      /*if ( $scope.newBrew === '' ) {
-       return;
-       }
-       $http.post('/api/brews', { name: $scope.newBrew });
-       $scope.newBrew = '';*/
+      $http.post('/api/brews', $scope.brew);
+      $scope.brews.push($scope.brew);
+      $scope.brew = {};
     };
   });

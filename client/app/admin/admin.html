@@ -13,15 +13,63 @@
 </div>
 
 <div class="container">
-  <a ng-click="addBrew()" class="pull-right">Add Brew</a>
   <h3 class="text-primary">Brews</h3>
   <p>The delete brew and add brew api routes are restricted to users with the 'admin' role.</p>
+  <form>
+    <div class="row">
+      <h5>Bean</h5>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Name" ng-model="brew.bean.name">
+      </div>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Roastery" ng-model="brew.bean.roastery">
+      </div>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Roast" ng-model="brew.bean.roast">
+      </div>
+    </div>
+    <div class="row">
+      <h5>Water</h5>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Temperature" ng-model="brew.water.temperature">
+      </div>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Degrees" ng-model="brew.water.degrees">
+      </div>
+    </div>
+    <div class="row">
+      <h5>Grind</h5>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Size" ng-model="brew.grind.size">
+      </div>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder="Grinder" ng-model="brew.grind.grinder">
+      </div>
+    </div>
+    <div class="row">
+      <h5>Time</h5>
+      <div class="col-xs-5">
+        <p><strong>{{brew.time}}</strong></p>
+        <datetimepicker data-ng-model="brew.time"
+                        data-datetimepicker-config="{ startView:'day', minView:'minute' }"></datetimepicker>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <button type="submit" class="btn btn-primary" ng-click="addBrew()">Add Brew</button>
+      </div>
+    </div>
+
+  </form>
+  <p>
+  <pre>{{brew}}</pre></p>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="brew in brews">
       <a ng-click="deleteBrew(brew)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
-      <strong>{{brew.bean.name}}</strong><br/>
-      <span class="text-muted">{{brew.bean.roastery}}</span><br/>
-      <span class="text-info">{{brew.time}}</span>
+      <strong>{{brew.bean.name}}</strong>
+      <span class="text-muted small">{{brew.bean.roastery}} | {{brew.bean.roast}}</span><br/>
+      <span class="text-muted small">{{brew.grind.grinder}} - {{brew.grind.size}}, {{brew.water.temperature}} {{brew.water.degrees}}</span><br/>
+      <span class="text-info">{{brew.time | date : 'medium'}}</span>
     </li>
   </ul>
 </div>
