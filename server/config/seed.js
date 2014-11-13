@@ -5,13 +5,14 @@
 
 'use strict';
 
+var moment = require('moment');
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Brew = require('../api/brew/brew.model');
 
 Brew.find({}).remove(function () {
   Brew.create({
-    time: new Date(),
+    time: moment().subtract(1, 'h').toDate(),
     bean: {
       roastery: "Tonx",
       roast: "Light",
@@ -26,7 +27,7 @@ Brew.find({}).remove(function () {
       grinder: "Baratza Preciso"
     }
   }, {
-    "time": new Date("2014-11-10T19:15:00Z"),
+    "time": moment().add(1, 'h').toDate(),
     "bean": {
       "name": "Apollo",
       "roastery": "Counter Culture",
@@ -41,7 +42,7 @@ Brew.find({}).remove(function () {
       "grinder": "Baratza Preciso"
     }
   }, {
-    "time" : new Date("2014-11-06T19:25:00Z"),
+    "time" : moment().add(5, 'h').toDate(),
     "bean" : {
       "name" : "Brazil Cerrado Gold",
       "roastery" : "Ceremony",
