@@ -36,10 +36,13 @@ exports.show = function(req, res, next) {
 exports.next = function (req, res, next) {
   Brew.findOne({time: {$gt : new Date()}}, function (err, brew) {
     if(err) return res.send(500, err);
-    res.json(200, brew);
+    if(brew) {
+      res.json(200, brew);
+    } else {
+      res.json(200, {});
+    }
   });
 };
-
 
 /**
  * Create a new brew.
