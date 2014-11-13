@@ -2,57 +2,65 @@
 
 <div class="container">
   <h3 class="text-primary">Users</h3>
+
   <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="user in users">
-        <strong>{{user.name}}</strong><br>
-        <span class="text-muted">{{user.email}}</span>
-        <a ng-click="deleteUser(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+      <strong>{{user.name}}</strong><br>
+      <span class="text-muted">{{user.email}}</span>
+      <a ng-click="deleteUser(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
 </div>
 
 <div class="container">
   <h3 class="text-primary">Brews</h3>
+
   <p>The delete brew and add brew api routes are restricted to users with the 'admin' role.</p>
+
   <form>
-    <div class="row">
-      <h5>Bean</h5>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Name" ng-model="brew.bean.name">
+    <div class="col-xs-8">
+      <div class="row">
+        <h5>Bean</h5>
+
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Name" ng-model="brew.bean.name">
+        </div>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Roastery" ng-model="brew.bean.roastery">
+        </div>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Roast" ng-model="brew.bean.roast">
+        </div>
       </div>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Roastery" ng-model="brew.bean.roastery">
+      <div class="row">
+        <h5>Water</h5>
+
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Temperature" ng-model="brew.water.temperature">
+        </div>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Degrees" ng-model="brew.water.degrees">
+        </div>
       </div>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Roast" ng-model="brew.bean.roast">
+      <div class="row">
+        <h5>Grind</h5>
+
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Size" ng-model="brew.grind.size">
+        </div>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" placeholder="Grinder" ng-model="brew.grind.grinder">
+        </div>
+      </div>
+      <div class="row">
+        <h1 class="lead text-muted text-center"><strong>{{brew.time | date : 'medium'}}</strong></h1>
       </div>
     </div>
-    <div class="row">
-      <h5>Water</h5>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Temperature" ng-model="brew.water.temperature">
-      </div>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Degrees" ng-model="brew.water.degrees">
-      </div>
-    </div>
-    <div class="row">
-      <h5>Grind</h5>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Size" ng-model="brew.grind.size">
-      </div>
-      <div class="col-xs-3">
-        <input type="text" class="form-control" placeholder="Grinder" ng-model="brew.grind.grinder">
-      </div>
-    </div>
-    <div class="row">
+    <div class="col-xs-4">
       <h5>Time</h5>
-      <div class="col-xs-5">
-        <p><strong>{{brew.time}}</strong></p>
-        <datetimepicker data-ng-model="brew.time"
-                        data-datetimepicker-config="{ startView:'day', minView:'minute' }"></datetimepicker>
-      </div>
+      <datetimepicker data-ng-model="brew.time"
+                      data-datetimepicker-config="{ startView:'day', minView:'minute' }"></datetimepicker>
     </div>
     <div class="row">
       <div class="col-xs-3">
