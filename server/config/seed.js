@@ -55,6 +55,8 @@ Brew.find({}).remove(function () {
       "size" : "30A",
       "grinder" : "Baratza Preciso"
     }
+  }, function(){
+    console.log("finished populating brews");
   });
 });
 
