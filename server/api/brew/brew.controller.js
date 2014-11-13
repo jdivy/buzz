@@ -19,9 +19,6 @@ exports.index = function(req, res) {
 
 /**
  * Get an individual brew by id.
- * @param req the request
- * @param res the response
- * @param next the next callback
  */
 exports.show = function(req, res, next) {
   var brewId = req.params.id;
@@ -33,10 +30,13 @@ exports.show = function(req, res, next) {
   });
 };
 
+/**
+ * Get the next brew in time.
+ */
 exports.next = function (req, res, next) {
-  Brew.find({}, function (err, brews) {
+  Brew.findOne({time: {$gt : new Date()}}, function (err, brew) {
     if(err) return res.send(500, err);
-    res.json(200, brews[0]);
+    res.json(200, brew);
   });
 };
 
