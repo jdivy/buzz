@@ -13,8 +13,15 @@ describe('Controller: MainCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/brews')
-      .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
+    $httpBackend.expectGET('/api/brews/next')
+      .respond({
+        time: new Date(),
+        bean: {
+          roastery: 'Tonx',
+          roast: 'Light',
+          name: 'Colombia'
+        }
+      });
 
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
@@ -22,8 +29,8 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of things to the scope', function () {
+  it('should attach the next brew to the scope', function () {
     $httpBackend.flush();
-    expect(scope.awesomeBrews.length).toBe(4);
+    expect(scope.nextBrew.bean.roastery).toBe('Tonx');
   });
 });

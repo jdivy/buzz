@@ -1,17 +1,16 @@
 'use strict';
 
 angular.module('buzzApp')
-  .controller('MainCtrl', function ($scope, $http/*, socket*/) {
-    $scope.awesomeBrews = [];
+  .controller('MainCtrl', function ($scope, $interval, $http/*, socket*/) {
+    $scope.nextBrew = {};
 
-    $http.get('/api/brews').success(function(awesomeBrews) {
-      $scope.awesomeBrews = awesomeBrews;
-      //socket.syncUpdates('brew', $scope.awesomeBrews);
+    $http.get('/api/brews/next').success(function(brew) {
+      $scope.nextBrew = brew;
     });
 
-    $scope.$on('$destroy', function() {
-      //socket.unsyncUpdates('brew');
-    });
+    //$scope.$on('$destroy', function() {
+    //  socket.unsyncUpdates('brew');
+    //});
 
     /*$scope.awesomeThings = [];
 
