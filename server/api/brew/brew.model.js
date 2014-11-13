@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var BrewSchema = new Schema({
-    time: Date,
+    time: {type: Date, required: true, index: true },
     bean: {
         roastery: String,
         roast: String,
