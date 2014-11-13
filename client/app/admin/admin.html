@@ -62,7 +62,8 @@
 
   </form>
   <p>
-  <pre>{{brew}}</pre></p>
+  <pre>{{brew | json}}</pre>
+  </p>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="brew in brews">
       <a ng-click="deleteBrew(brew)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
