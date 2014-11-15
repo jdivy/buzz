@@ -1,11 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
 var Brew = require('./brew.model');
-var config = require('../../config/environment');
-
-var validationError = function (res, err) {
-  return res.json(422, err);
-};
 
 /**
  * Get list of brews
@@ -13,7 +9,7 @@ var validationError = function (res, err) {
 exports.index = function (req, res) {
   Brew.find({}, function (err, brews) {
     if (err) return res.send(500, err);
-    res.json(200, brews);
+    return res.json(200, brews);
   });
 };
 
@@ -21,12 +17,10 @@ exports.index = function (req, res) {
  * Get an individual brew by id.
  */
 exports.show = function (req, res, next) {
-  var brewId = req.params.id;
-
-  Brew.findById(brewId, function (err, brew) {
+  Brew.findById(req.params.id, function (err, brew) {
     if (err) return next(err);
     if (!brew) return res.send(401);
-    res.json(brew);
+    return res.json(brew);
   });
 };
 
@@ -37,9 +31,9 @@ exports.next = function (req, res, next) {
   Brew.findOne({time: {$gt: new Date()}}, function (err, brew) {
     if (err) return res.send(500, err);
     if (brew) {
-      res.json(200, brew);
+      return res.json(200, brew);
     } else {
-      res.json(200, {});
+      return res.json(200, {});
     }
   });
 };
@@ -48,11 +42,26 @@ exports.next = function (req, res, next) {
  * Create a new brew.
  */
 exports.create = function (req, res, next) {
-  var newBrew = new Brew(req.body);
-  newBrew.save(function (err, brew) {
+  Brew.create(req.body, function (err, brew) {
     if (err) return validationError(res, err);
-    res.json(201, brew);
-  })
+    return res.json(201, brew);
+  });
+};
+
+/**
+ * Updates a brew.
+ */
+exports.update = function(req, res) {
+  if(req.body._id) {delete req.body._id;}
+  Brew.findById(req.params.id, function (err, brew) {
+    if(err) { return handleError(res, err);}
+    if(!brew) { return res.send(404);}
+    var updated = _.merge(brew, req.body);
+    updated.save(function (err) {
+      if(err) { return handleError(res, err);}
+      return res.json(200, brew);
+    });
+  });
 };
 
 /**
@@ -60,7 +69,15 @@ exports.create = function (req, res, next) {
  */
 exports.destroy = function (req, res) {
   Brew.findByIdAndRemove(req.params.id, function (err, brew) {
-    if (err) return res.send(500, err);
+    if (err) {return res.send(500, err);}
     return res.send(204);
   });
 };
+
+function handleError(res, err) {
+  return res.send(500, err);
+}
+
+function validationError(res, err) {
+  return res.json(422, err);
+}
