@@ -49,6 +49,26 @@ exports.create = function (req, res, next) {
 };
 
 /**
+ * Rate a brew.
+ */
+exports.rate = function(req, res) {
+  if(req.body._id) {delete req.body._id;}
+  Brew.findById(req.params.id, function (err, brew) {
+    if(err) { return handleError(res, err);}
+    if(!brew) { return res.send(404);}
+    // protect against other updated values
+    var ratings = _.pick(req.body, 'ratings');
+    var rated = _.merge(brew, ratings, function(a, b) {
+      return _.isArray(a) ? a.concat(b) : undefined;
+    });
+    rated.save(function (err, brew) {
+      if(err) { return handleError(res, err);}
+      return res.json(200, brew);
+    });
+  });
+};
+
+/**
  * Updates a brew.
  */
 exports.update = function(req, res) {
@@ -69,7 +89,7 @@ exports.update = function(req, res) {
  */
 exports.destroy = function (req, res) {
   Brew.findByIdAndRemove(req.params.id, function (err, brew) {
-    if (err) {return res.send(500, err);}
+    if (err) {return handleError(res, err);}
     return res.send(204);
   });
 };
